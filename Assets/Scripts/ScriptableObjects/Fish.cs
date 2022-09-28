@@ -16,5 +16,9 @@ public class Fish : ScriptableObject
 
     public Sprite Sprite;
 
+    public float Resistance;
+    public float Speed;
+    public float AgroRange;
+
     public List<Area> Area;
 }

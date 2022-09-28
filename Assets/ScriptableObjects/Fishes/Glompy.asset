@@ -18,5 +18,9 @@ MonoBehaviour:
   Price: 0
   WeightMin: 0
   WeightMax: 0
+  Sprite: {fileID: 21300000, guid: a6fff035764fe98409a983b66dcf72c8, type: 3}
+  Resistance: 0
+  Speed: 2
+  AgroRange: 0
   Area:
   - {fileID: 11400000, guid: 1f579e3422c0d0b499783e9a02a8b023, type: 2}
