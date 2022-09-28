@@ -10,4 +10,6 @@ public abstract class FishBase : MonoBehaviour
     public float Resistance;
 
     public FishState FishState;
+
+    public Vector2 SpawnPosition;
 }

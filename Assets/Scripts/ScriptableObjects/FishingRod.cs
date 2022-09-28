@@ -1,5 +1,5 @@
 using UnityEngine;
-
+ 
 [CreateAssetMenu(menuName = "Custom/FishingRod", order = 1)]
 public class FishingRod : ScriptableObject
 {
