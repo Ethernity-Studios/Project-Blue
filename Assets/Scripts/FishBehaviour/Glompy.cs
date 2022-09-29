@@ -6,6 +6,9 @@ public class Glompy : FishBase
     public Fish Fish;
 
     SpriteRenderer fishSprite;
+    Vector3 targetRotation;
+
+    [SerializeField] int side;
 
     private void Start()
     {
@@ -16,6 +19,9 @@ public class Glompy : FishBase
     {
         swim();
         chaseBait();
+
+        Debug.DrawRay(transform.position, new Vector2(-4, 0), Color.red);
+        Debug.DrawRay(transform.position, new Vector2(4, 0), Color.green);
     }
 
 
@@ -27,6 +33,9 @@ public class Glompy : FishBase
         if (FishState == FishState.Swimming)
         {
             transform.position += transform.right * Time.deltaTime * Fish.Speed;
+            if (side == 0) transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 180, targetRotation.z)), 0.25f * Time.deltaTime);
+            else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 0, targetRotation.z)), 0.25f * Time.deltaTime);
+
         }
 
         if (FishState == FishState.Idle)
@@ -38,41 +47,62 @@ public class Glompy : FishBase
     IEnumerator swimming()
     {
         FishState = FishState.Waiting;
+        yield return new WaitForSeconds(.5f);
         if (Random.Range(0, 2) == 0) // if fish should swim
         {
-            Debug.Log("I will swimm");
             FishState = FishState.Swimming;
-
-            if (Random.Range(0, 2) == 0) // 0 = right || 1 = left
+            side = Random.Range(0, 2); // 0 = left || 1 = right
+            if (side == 0)
             {
-                Debug.Log("I will go right");
-                transform.eulerAngles = new Vector3(0, 180, 0);
-                fishSprite.flipX = true;
-                if (Random.Range(0, 3) == 0) // if fish should rotate
+                RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.left, distance: 4f, layerMask: collisionMask); // check if there is something on left
+                if (hit.collider != null)
                 {
-                    Debug.Log("I will rotate");
-                    transform.eulerAngles = new Vector3(0, 180, Random.Range(45, -45));
+                    Debug.Log(hit.collider.gameObject + "goin right!");
+                    side = 1;
                 }
             }
             else
             {
-                Debug.Log("I will go left");
-                transform.eulerAngles = new Vector3(0,0,0);
-                fishSprite.flipX = false;
-                if (Random.Range(0, 5) == 0) // if fish should rotate
+                RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.right, distance: 4f, layerMask: collisionMask); // check if there is something on right
+                if (hit.collider != null)
                 {
-                    Debug.Log("I will rotate");
-                    transform.eulerAngles = new Vector3(0, 0, Random.Range(45,-45));
+                    Debug.Log(hit.collider.gameObject + "goin left!");
+                    side = 0;
                 }
             }
+
+            if (side == 0)
+            {
+                transform.eulerAngles = new Vector3(0, 180, 0);
+                fishSprite.flipX = true;
+                if (Random.Range(0, 2) == 0) // if fish should rotate
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.up, distance: 2f, layerMask: waterMask);
+                    if (hit.collider == null) targetRotation.z = Random.Range(0, -45);
+                    else targetRotation.z = Random.Range(45, -45);
+                }
+                else targetRotation = new Vector3(0, 180, 0);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                fishSprite.flipX = true;
+                if (Random.Range(0, 2) == 0) // if fish should rotate
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.up, distance: 2f, layerMask: waterMask);
+                    if (hit.collider == null) targetRotation.z = Random.Range(0, -45);
+                    else targetRotation.z = Random.Range(45, -45);
+                }
+                else targetRotation = Vector3.zero;
+            }
             yield return new WaitForSeconds(Random.Range(1, 3)); // how long fish should swim
-            transform.eulerAngles = Vector3.zero;
+            targetRotation = Vector3.zero;
             FishState = FishState.Idle;
         }
         else
         {
-            Debug.Log("I will not swim");
             yield return new WaitForSeconds(3f); // attems before trying another swimming
+            targetRotation = Vector3.zero;
             FishState = FishState.Idle;
         }
     }
@@ -83,9 +113,7 @@ public class Glompy : FishBase
            transform.position.y > SpawnPosition.y + 3 || transform.position.y < SpawnPosition.y - 3)
         {
             if (FishState != FishState.Swimming) return;
-            //Debug.Log("Im out of bounce");
             StopCoroutine("swimming");
-            //transform.eulerAngles = Vector3.zero;
         }
     }
 
@@ -93,4 +121,7 @@ public class Glompy : FishBase
     {
 
     }
+
+
+
 }

@@ -15,4 +15,7 @@ public abstract class FishBase : MonoBehaviour
     public FishState FishState;
 
     public Vector2 SpawnPosition;
+
+    public LayerMask collisionMask;
+    public LayerMask waterMask;
 }
