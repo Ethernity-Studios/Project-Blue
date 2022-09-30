@@ -12,8 +12,8 @@ TagManager:
   - Terrain
   - Water
   - UI
-  - 
-  - 
+  - Sky
+  - Rod
   - 
   - 
   - 
@@ -45,12 +45,12 @@ TagManager:
   - name: Ground
     uniqueID: 1159753521
     locked: 0
+  - name: Player
+    uniqueID: 4288888967
+    locked: 0
   - name: Fishes
     uniqueID: 4052434935
     locked: 0
   - name: Water
     uniqueID: 3272756617
-    locked: 0
-  - name: Player
-    uniqueID: 4288888967
     locked: 0

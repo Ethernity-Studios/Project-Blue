@@ -1,10 +1,5 @@
 using UnityEngine;
 
-public enum BaitSize
-{
-    none, small, medium, large
-}
-
 public class BaitController : MonoBehaviour
 {
     public bool IsInWater;
@@ -17,7 +12,7 @@ public class BaitController : MonoBehaviour
 
     RodController rodController;
 
-    public BaitSize BaitSize;
+    public Bait Bait;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();

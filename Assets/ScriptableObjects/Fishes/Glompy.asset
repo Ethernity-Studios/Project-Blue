@@ -15,12 +15,13 @@ MonoBehaviour:
   Id: 0
   Name: Glompy
   Description: Most basic fish on planet
-  Price: 0
-  WeightMin: 0
-  WeightMax: 0
-  Sprite: {fileID: 21300000, guid: a6fff035764fe98409a983b66dcf72c8, type: 3}
-  Resistance: 0
-  Speed: 2
-  AgroRange: 0
+  Price: 50
+  WeightMin: 0.3
+  WeightMax: 0.5
+  Size: 0
+  Sprite: {fileID: 843015102, guid: 0bba056b6f74bb240acd6c1ea00d78ef, type: 3}
+  Strenght: 0.6
+  Speed: 1.5
+  AgroRange: 1
   Area:
   - {fileID: 11400000, guid: 1f579e3422c0d0b499783e9a02a8b023, type: 2}

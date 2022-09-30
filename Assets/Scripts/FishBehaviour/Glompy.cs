@@ -15,13 +15,10 @@ public class Glompy : FishBase
         fishSprite = GetComponent<SpriteRenderer>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         swim();
         chaseBait();
-
-        Debug.DrawRay(transform.position, new Vector2(-4, 0), Color.red);
-        Debug.DrawRay(transform.position, new Vector2(4, 0), Color.green);
     }
 
 
@@ -54,21 +51,13 @@ public class Glompy : FishBase
             side = Random.Range(0, 2); // 0 = left || 1 = right
             if (side == 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.left, distance: 4f, layerMask: collisionMask); // check if there is something on left
-                if (hit.collider != null)
-                {
-                    Debug.Log(hit.collider.gameObject + "goin right!");
-                    side = 1;
-                }
+                RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.left, distance: 4f, layerMask: terrainMask); // check if there is something on left
+                if (hit.collider != null) side = 1;
             }
             else
             {
-                RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.right, distance: 4f, layerMask: collisionMask); // check if there is something on right
-                if (hit.collider != null)
-                {
-                    Debug.Log(hit.collider.gameObject + "goin left!");
-                    side = 0;
-                }
+                RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.right, distance: 4f, layerMask: terrainMask); // check if there is something on right
+                if (hit.collider != null) side = 0;
             }
 
             if (side == 0)
@@ -77,9 +66,7 @@ public class Glompy : FishBase
                 fishSprite.flipX = true;
                 if (Random.Range(0, 2) == 0) // if fish should rotate
                 {
-                    RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.up, distance: 2f, layerMask: waterMask);
-                    if (hit.collider == null) targetRotation.z = Random.Range(0, -45);
-                    else targetRotation.z = Random.Range(45, -45);
+                    checkCollisionRotation();
                 }
                 else targetRotation = new Vector3(0, 180, 0);
             }
@@ -89,9 +76,7 @@ public class Glompy : FishBase
                 fishSprite.flipX = true;
                 if (Random.Range(0, 2) == 0) // if fish should rotate
                 {
-                    RaycastHit2D hit = Physics2D.Raycast(origin: transform.position, direction: Vector2.up, distance: 2f, layerMask: waterMask);
-                    if (hit.collider == null) targetRotation.z = Random.Range(0, -45);
-                    else targetRotation.z = Random.Range(45, -45);
+                    checkCollisionRotation();
                 }
                 else targetRotation = Vector3.zero;
             }
@@ -105,6 +90,33 @@ public class Glompy : FishBase
             targetRotation = Vector3.zero;
             FishState = FishState.Idle;
         }
+    }
+
+    void checkCollisionRotation()
+    {
+        int max = 45;
+        int min = -45;
+        RaycastHit2D hitSky = Physics2D.Raycast(origin: transform.position, direction: Vector2.up, distance: 1f, layerMask: skyMask);
+        if (hitSky.collider != null) 
+        {
+            max = -20;
+            min = -45;
+        } 
+
+        RaycastHit2D hitUp = Physics2D.Raycast(origin: transform.position, direction: Vector2.up, distance: 1f, layerMask: terrainMask);
+        if (hitUp.collider != null)
+        {
+            max = -20;
+            min = -45;
+        }
+        RaycastHit2D hitDown = Physics2D.Raycast(origin: transform.position, direction: Vector2.down, distance: 1f, layerMask: terrainMask);
+        if (hitDown.collider != null)
+        {
+            max = 45;
+            min = 20;
+        }
+
+        targetRotation.z = Random.Range(min,max);
     }
 
     void checkDistace()

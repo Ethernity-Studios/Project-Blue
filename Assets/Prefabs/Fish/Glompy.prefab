@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: -242532361
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a6fff035764fe98409a983b66dcf72c8, type: 3}
+  m_Sprite: {fileID: 843015102, guid: 0bba056b6f74bb240acd6c1ea00d78ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,11 +99,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FishState: 0
   SpawnPosition: {x: 4, y: -2.5}
-  collisionMask:
+  terrainMask:
     serializedVersion: 2
     m_Bits: 8
-  waterMask:
+  skyMask:
     serializedVersion: 2
-    m_Bits: 16
+    m_Bits: 64
+  Size: 0
+  Weight: 0
   Fish: {fileID: 11400000, guid: 3c84c2eac95f2544788a127cad6ab5a8, type: 2}
   side: 0

@@ -11,12 +11,14 @@ public class Fish : ScriptableObject
     public string Description;
 
     public int Price;
+
     public float WeightMin;
     public float WeightMax;
+    public FishSize Size;
 
     public Sprite Sprite;
 
-    public float Resistance;
+    public float Strenght;
     public float Speed;
     public float AgroRange;
 
