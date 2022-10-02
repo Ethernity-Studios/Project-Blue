@@ -71,13 +71,22 @@ public class RodController : MonoBehaviour
             }
             if (RodState == RodState.Casting)
             {
-                if(CastProgress > 1f)
+                if (CastProgress > 1f)
                 {
                     RodState = RodState.Casted;
                     cast();
                 }
-                else RodState = RodState.Idle;
+                else 
+                {
+                    RodState = RodState.Idle;
+                    distanceJoint2D.distance = .5f;
+                } 
             }
+        }
+
+        if(RodState == RodState.Casting && CastProgress <1f && distanceJoint2D.distance != .5f)
+        {
+            distanceJoint2D.distance = .5f;
         }
 
         if(baitController.WasInWater && RodState == RodState.Casted)

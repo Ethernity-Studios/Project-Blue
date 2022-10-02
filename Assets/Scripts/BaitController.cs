@@ -26,6 +26,8 @@ public class BaitController : MonoBehaviour
             rb.gravityScale = .1f;
             rb.velocity = rb.velocity / 2f;
 
+            rb.AddTorque(.2f,ForceMode2D.Force);
+
             IsInWater = true;
             WasInWater = true;
         }
@@ -34,6 +36,7 @@ public class BaitController : MonoBehaviour
     {
         if (collision.tag == "Water")
         {
+            rb.angularVelocity = 0;
             IsInWater = false;
             rb.gravityScale = 1;
         }

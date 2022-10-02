@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7004578099569253847}
   - component: {fileID: 7004578099569253846}
   - component: {fileID: 7004578099569253844}
+  - component: {fileID: 273862906700566315}
   m_Layer: 0
   m_Name: Glompy
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -242532361
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 843015102, guid: 0bba056b6f74bb240acd6c1ea00d78ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -109,3 +110,19 @@ MonoBehaviour:
   Weight: 0
   Fish: {fileID: 11400000, guid: 3c84c2eac95f2544788a127cad6ab5a8, type: 2}
   side: 0
+--- !u!58 &273862906700566315
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004578099569253833}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.15
